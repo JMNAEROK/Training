@@ -1,0 +1,10 @@
+# C build outputs
+main
+*.o
+*.out
+*.exe
+*.dSYM/
+
+# macOS
+.DS_Store
+
