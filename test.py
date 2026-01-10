@@ -1,15 +1,12 @@
-arr = [0] * 10
-for i in range(10) :
-    arr[i] = int(input())
-for i in range(len(arr)) :
-    arr[i] %= 42
-test = [0 for i in range(42)]
-for value in arr :
-    test[value] += 1
+N, k = map(int, input().split())
+score = list(map(int, input().split()))
 
-count = 0
-for i in range(len(test)) :
-    if (test[i] >= 1) :
-        count += 1
+for i in range(len(score) - 1) :
+    biggest_num_index = i
+    for j in range(i+1, len(score)) :
+        if(score[biggest_num_index] < score[j]) :
+            biggest_num_index = j
+    if (biggest_num_index != i) :
+        score[i], score[biggest_num_index] = score[biggest_num_index], score[i]
 
-print(count)
+print(score[k-1])
