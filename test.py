@@ -1,12 +1,23 @@
-N, k = map(int, input().split())
-score = list(map(int, input().split()))
+N = int(input())
+time = list(map(int, input().split()))
 
-for i in range(len(score) - 1) :
-    biggest_num_index = i
-    for j in range(i+1, len(score)) :
-        if(score[biggest_num_index] < score[j]) :
-            biggest_num_index = j
-    if (biggest_num_index != i) :
-        score[i], score[biggest_num_index] = score[biggest_num_index], score[i]
+for index in range(1, len(time)) :
+    temp_value = time[index]
+    position = index - 1
+    while(position >= 0) :
+        if(time[position] > temp_value) :
+            time[position + 1] = time[position]
+            position -= 1
+        else :
+            break
+    time[position + 1] = temp_value
+print(time)
 
-print(score[k-1])
+total_time = 0
+for i in range(len(time)) :
+    sum = 0
+    for j in range(i + 1) :
+        sum += time[j]
+    total_time += sum
+
+print(total_time)
