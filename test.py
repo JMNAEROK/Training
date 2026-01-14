@@ -1,10 +1,11 @@
-def find_duplication(array) :
+import string
+def find_empty (array) :
     hash_table = {}
     for value in array :
-        if (hash_table.get(value) == True) :
-            return value
-        else :
-            hash_table[value] = True
-
-arr = list(map(str, input().split()))
-print(find_duplication(arr))
+        hash_table[value] = True
+    for search in string.ascii_lowercase :
+        if (search not in hash_table) :
+            return search
+    return None
+text = str(input())
+print(find_empty(text))
