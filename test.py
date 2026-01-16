@@ -1,33 +1,54 @@
-import string
-class stack :
-    def __init__ (self) :
-        self.data = []
-    def push (self, text) :
-        self.data.append(text)
-    def pop (self) :
-        if (len(self.data) == 0) :
-            return None
-        return self.data.pop()
-    def read (self) :
-        if (len(self.data) == 0) :
-            return None
-        return self.data[-1]
-priority = {'+' : 1, '-' : 1, '*' : 2, '/' : 2}
-expression = input()
-operator = stack()
-for value in expression :
-    if (value in string.ascii_uppercase) :
-        print(value, end="")
-    elif (value == '(') :
-        operator.push(value)
-    elif (value == ')') :
-        while (operator.read() != '(') :
-            print(operator.pop(), end="")
-        operator.pop()
-    else :
-        while (operator.read() is not None and operator.read() != '(' and priority[operator.read()] >= priority[value]) :
-            print(operator.pop(), end = "")
-        operator.push(value)
-while(operator.read() is not None) :
-    print(operator.pop(), end = "")
+# class Queue :
+#     def __init__ (self) :
+#         self.data = []
+#     def enqueue(self, element) :
+#         self.data.append(element)
+#     def dequeue(self) :
+#         if len(self.data) > 0 :
+#             return self.data.pop(0)
+#         else :
+#             return None
+#     def read(self) :
+#         if len(self.data) > 0 :
+#             return self.data[0]
+#         else :
+#             return None
+# class PrintManager :
+#     def __init__(self) :
+#         self.Q = Queue()
+#     def queue_print_job(self, document) :
+#         self.Q.enqueue(document)
+#     def run (self) :
+#         while self.Q.read() :
+#             self.print_document(self.Q.dequeue())
+#     def print_document(self, document) :
+#         print(document)
+# print_manager = PrintManager()
+# print_manager.queue_print_job("First Document")
+# print_manager.queue_print_job("Second Document")
+# print_manager.queue_print_job("Third Document")
+# print_manager.run()
 
+class stack :
+    def __init__(self) :
+        self.data = []
+    def push(self, element) :
+        self.data.append(element)
+    def read(self) :
+        if len(self.data) > 0 :
+            return self.data[-1]
+        else :
+            return None
+    def pop(self) :
+        if len(self.data) > 0 :
+            return self.data.pop()
+        else :
+            return None
+def reverse (arr) :
+    while arr.read() :
+        print(arr.pop(), end="")
+arr = stack()
+x = input()
+for value in x :
+    arr.push(value)
+reverse(arr)
