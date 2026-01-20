@@ -1,19 +1,22 @@
-def draw(x, y, n) :
-    if n == 1 :
-        array[x][y] = "*"
-        return
-    
-    size = n // 3
-    for i in range(3) :
-        for j in range(3) :
-            if i == 1 and j == 1 :
-                continue
-            draw(x + i*size, y + j*size, size)
+def compression (x, y, n) :
+    first = array[x][y]
+    same = True
+    for i in range(x, x + n) :
+        for j in range(y, y + n) :
+            if first != array[i][j] :
+                same = False
+                break
+    if same :
+        return first
+    half = n // 2
+    return "(" + \
+        compression(x, y, half) + \
+        compression(x, y+half, half) + \
+        compression(x+half, y, half) + \
+        compression(x+half, y+half, half) + \
+         ")"
 
 N = int(input())
-array = [[" "]*N for _ in range(N)]
-draw(0, 0, N)
-for i in range(N) :
-    for j in range(N) :
-        print(array[i][j], end="")
-    print()
+array = list(input().strip() for i in range(N))
+print(array)
+print(compression(0, 0, N))
