@@ -1,6 +1,7 @@
-def triangular_number (N) :
-    if N == 1 :
-        return 1
-    return triangular_number(N - 1) + N
-N = int(input())
-print(triangular_number(N))
+def find_x (arr) :
+    if arr[0] == "x" :
+        return 0
+    return find_x (arr[1:]) + 1
+
+arr = input()
+print(find_x(arr))
