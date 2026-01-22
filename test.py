@@ -1,15 +1,8 @@
-def anagram (string) :
-    if len(string) == 1 :
-        return [string[0]]
-    collection = []
+def num_ch (arr) :
+    if not arr :
+        return 0
+    n = len(arr[0])
+    return n + num_ch(arr[1:])
 
-    substring_anagrams = anagram(string[1:])
-    for substring_anagram in substring_anagrams :
-        for index in range(len(substring_anagram) + 1) :
-            new_string = (substring_anagram[:index]
-                              + string[0]
-                              + substring_anagram[index:])
-            collection.append(new_string)
-    return collection
-
-print(anagram(input()))
+array = input().split()
+print(num_ch(array))
