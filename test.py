@@ -1,7 +1,15 @@
-def stair_case (N) :
-    if (N == 0) : return 1
-    if (N < 0) : return 0
-    return stair_case(N-1) + stair_case(N-2) + stair_case(N-3)
+def anagram (string) :
+    if len(string) == 1 :
+        return [string[0]]
+    collection = []
 
-N = int(input())
-print(stair_case(N))
+    substring_anagrams = anagram(string[1:])
+    for substring_anagram in substring_anagrams :
+        for index in range(len(substring_anagram) + 1) :
+            new_string = (substring_anagram[:index]
+                              + string[0]
+                              + substring_anagram[index:])
+            collection.append(new_string)
+    return collection
+
+print(anagram(input()))
