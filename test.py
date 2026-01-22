@@ -1,8 +1,10 @@
-def num_ch (arr) :
+def select_even (arr) :
     if not arr :
-        return 0
-    n = len(arr[0])
-    return n + num_ch(arr[1:])
+        return []
+    if arr[0] % 2 == 0 :
+        return [arr[0]] + select_even(arr[1:])
+    else :
+        return select_even(arr[1:])
 
-array = input().split()
-print(num_ch(array))
+array = list(map(int, input().split()))
+print(select_even (array))
