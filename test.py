@@ -1,18 +1,47 @@
-#하노이탑
-#1 -> 3 옮기는데 가장 큰 원판을 3으로 옮기면 나머지는 자동
-#큰 원판을 옮기는 것의 하위 문제는 ?
-#나머지 원판을 임시 구역으로 옮기는 것
-#나머지 원판을 임시 구역으로 옮기는 건 2번째로 큰 원판을 임시구역으로 옮기는 것과 같음
+class SortableArray :
+    def __init__ (self, array) :
+        self.array = array
 
-def hanoi (N, start, end, temp) :
-    if N == 1 :
-        print(start, end)
-        return
-    hanoi (N-1, start, temp, end)
-    print(start, end)
-    hanoi (N-1, temp, end, start)
+    def partition (self, left_pointer, right_pointer) :
+        pivot_index = right_pointer
+        pivot = self.array[pivot_index]
+
+        right_pointer -= 1
+
+        while True :
+
+            while self.array[left_pointer] < pivot :
+                left_pointer += 1
+            
+            while self.array[right_pointer] > pivot :
+                right_pointer -= 1
+
+            if left_pointer >= right_pointer :
+                break
+            
+            else :
+                self.array[left_pointer], self.array[right_pointer] = \
+                    self.array[right_pointer], self.array[left_pointer]
+                left_pointer += 1
+        
+        self.array[left_pointer], self.array[pivot_index] = \
+            self.array[pivot_index], self.array[left_pointer]
+        
+        return left_pointer
     
+    def quicksort (self, left_index, right_index) :
+        if right_index - left_index <= 0 :
+            return
     
-N = int(input())
-print(2 ** N - 1)
-hanoi(N, 1, 3, 2)
+        pivot_index = self.partition(left_index, right_index)
+
+        self.quicksort (left_index, pivot_index - 1)
+
+        self.quicksort (pivot_index + 1, right_index)
+
+    
+
+array = [0, 5, 2, 1, 6, 3]
+sortable_array = SortableArray(array)
+sortable_array.quicksort(0, len(array) - 1)
+print(sortable_array.array)
