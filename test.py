@@ -39,9 +39,15 @@ class SortableArray :
 
         self.quicksort (pivot_index + 1, right_index)
 
-    
+    def quickselect (self, kth_lowest_value, left_index, right_index) :
+        if right_index - left_index <= 0 :
+            return self.array[left_index]
+        
+        pivot_index = self.partition (left_index, right_index)
 
-array = [0, 5, 2, 1, 6, 3]
-sortable_array = SortableArray(array)
-sortable_array.quicksort(0, len(array) - 1)
-print(sortable_array.array)
+        if kth_lowest_value < pivot_index :
+            return self.quickselect(kth_lowest_value, left_index, pivot_index - 1)
+        elif kth_lowest_value > pivot_index :
+            return self.quickselect (kth_lowest_value, pivot_index + 1, right_index)
+        else :
+            return self.array[pivot_index]
