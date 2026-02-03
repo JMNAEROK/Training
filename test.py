@@ -1,33 +1,83 @@
-def quickselect (array, left_index, right_index, num) :
-    pivot_index = right_index
-    right_index -= 1
+class Node :
+    def __init__ (self, data) :
+        self.data = data
+        self.next_node = None
+
+class LinkedList :
+    def __init__ (self, first_node = None) :
+        self.first_node = first_node
     
-    while True :
-        while array[left_index] < array[pivot_index] :
-            left_index += 1
-        while array[right_index] > array[pivot_index] :
-            right_index -= 1
+    def read (self, index) :
+        current_node = self.first_node
+        current_index = 0
+
+        while current_index < index :
+            current_node = current_node.next_node
+            current_index += 1
+
+            if not current_node :
+                return None
         
-        if left_index >= right_index :
-            break
-        else :
-            array[left_index], array[right_index] = \
-                array[right_index], array[left_index]
-            left_index += 1
-
-    array[left_index], array[pivot_index] = \
-        array[pivot_index], array[left_index]
-    pivot_index = left_index
-
-    if num < pivot_index :
-        return quickselect (array, 0, pivot_index - 1, num)
-    elif num > pivot_index :
-        return quickselect (array, pivot_index + 1, len(array) - 1, num)
-    else :
-        return array[pivot_index]
-
+        return current_node.data
     
-N, R = map(int, input().split())
-array = list(map(int, input().split()))
+    def search (self, value) :
+        current_node = self.first_node
+        current_index = 0
 
-print(quickselect(array, 0, len(array) - 1, R))
+        while True :
+            if current_node.data == value :
+                return current_index
+            
+            current_node = current_node.next_node
+
+            if not current_node :
+                break
+
+            current_index += 1
+        
+        return None
+    
+    def insert (self, index, value) :
+        new_node = Node(value)
+
+        if index == 0 :
+            new_node.next_node = self.first_node
+            self.first_node = new_node
+        
+        current_node = self.first_node
+        current_index = 0
+
+        while current_index < (index - 1) :
+            current_node = current_node.next_node
+            current_index += 1
+        
+        new_node.next_node = current_node.next_node
+        current_node.next_node = new_node
+
+    def delete (self, index) :
+        if index == 0 :
+            self.first_node = self.first_node.next_node
+            return
+        
+        current_node = self.first_node
+        current_index = 0
+
+        while current_index < (index - 1) :
+            current_node = current_node.next_node
+            current_index += 1
+        
+        node_after_deleted_node = current_node.next_node.next_node
+
+        current_node.next_node = node_after_deleted_node
+
+node_1 = Node("once")
+node_2 = Node("upon")
+node_3 = Node("a")
+node_4 = Node("time")
+node_1.next_node = node_2
+node_2.next_node = node_3
+node_3.next_node = node_4
+
+list = LinkedList(node_1)
+list.delete (1)
+print(list.read(1))
