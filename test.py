@@ -4,10 +4,6 @@ class TreeNode :
         self.left_child = left
         self.right_child = right
 
-node1 = TreeNode(25)
-node2 = TreeNode(75)
-root = TreeNode(50, node1, node2)
-
 def search (search_value, node) :
     if not node or node.value == search_value :
         return node
@@ -89,9 +85,28 @@ def delete (value_to_delete, node) :
 
     return node_to_delete
 
-def traverse_and_print (node) :
+def find_the_greatest (node) :
+    if not node.right_child :
+        return node.value
+    return find_the_greatest (node.right_child)
+
+def traverse_and_print_preorder (node) :
     if not node :
         return
-    traverse_and_print(node.left_child)
     print(node.value)
-    traverse_and_print(node.right_child)
+    traverse_and_print_preorder (node.left_child)
+    traverse_and_print_preorder (node.right_child)
+
+def traverse_and_print_inorder (node) :
+    if not node :
+        return
+    traverse_and_print_inorder (node.left_child)
+    print(node.value)
+    traverse_and_print_inorder (node.right_child)
+
+def traverse_and_print_postorder (node) :
+    if not node :
+        return
+    traverse_and_print_postorder (node.left_child)
+    traverse_and_print_postorder (node.right_child)
+    print(node.value)
